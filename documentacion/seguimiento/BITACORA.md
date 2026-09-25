@@ -208,6 +208,30 @@ de nuevo. Añadir las próximas entradas al final.
 - Siguiente paso: completar acceso/destino GitHub (BF-024); después conectar
   Express con PostgreSQL (BF-010), con permisos limitados.
 
+## H-016 · Repositorio existente asociado y subida verificada · 2026-09-25
+
+- Petición: usar https://github.com/moisejos10/blue-fragancias.git, aportado por
+  el usuario como su repositorio privado. D-016 actualizada; no se creó otro repo.
+- Estado inicial: `main` local limpia, commits `6235fa8` y `2031345`, sin remoto.
+  Git Credential Manager disponible; no había plugin GitHub conectado ni `gh`.
+- Comprobación remota: `git ls-remote --symref` terminó con código 0 y sin ramas
+  remotas. La primera consulta falló por red restringida del sandbox; fuera del
+  sandbox, con autorización, funcionó usando la autenticación existente.
+  No se extrajeron ni guardaron credenciales en archivos o memoria.
+- Implementado: `origin` asociado al destino aportado; `git push -u origin main`
+  creó `main` remota y configuró seguimiento de `origin/main`, sin force.
+- Verificación de la primera subida: SHA local/remoto idéntico
+  `20313455db17731c5a74d495e0e893084c56ec9f`, cero cambios locales pendientes.
+  La revisión de alcance la hizo el coordinador; el agente principal ejecutó Git
+  y es el único escritor de esta memoria.
+- Privacidad: confirmada por el usuario; no se consultó la API de visibilidad ni
+  se modificaron permisos. La subida del código no equivale a desplegar la tienda.
+- Archivos de cierre: ESTADO.md, TABLERO.md, DECISIONES.md y BITACORA.md.
+  Sin cambios en código, migración, base habitual o exclusiones de Git. No se
+  repitieron pruebas SQL por esta entrega de sincronización.
+- BF-024 terminado. Siguiente paso propuesto: BF-010, conectar Express con
+  PostgreSQL mediante un rol de permisos limitados.
+
 ## Plantilla para próximas entradas
 
 ```text

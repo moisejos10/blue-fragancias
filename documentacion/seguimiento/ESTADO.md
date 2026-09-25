@@ -2,10 +2,11 @@
 
 Actualizado: 2026-09-25 · America/Caracas.
 
-**Última entrega:** BF-008 completado: repositorio Git local en `main` y primer
-commit `6235fa8`, con 22 archivos revisados. El usuario planteó usar GitHub;
-conexión y repositorio remoto pendientes (BF-024). BF-023 conserva su prueba
-local exitosa del 25 de septiembre.
+**Última entrega:** BF-024 completado: `main` subida y verificada en
+[moisejos10/blue-fragancias](https://github.com/moisejos10/blue-fragancias),
+repositorio privado según el usuario. `origin/main` configurado como seguimiento.
+BF-008 conserva el primer commit local `6235fa8`; BF-023 conserva su prueba
+local exitosa del 25 de septiembre. La tienda aún no está desplegada.
 [Fragancias Boutique](https://fraganciasboutique.com/) sigue como guía de tienda
 (D-015). El cierre anterior se conserva en
 [CIERRE-2026-09-23.md](CIERRE-2026-09-23.md).
@@ -34,13 +35,14 @@ todavía no está conectado a PostgreSQL ni existe frontend React.
 | Documentación visual | Implementada y verificada parcialmente | HTML/SVG/PNG y guía en `documentacion`; 11 tablas, 16 FK y 110 campos comprobados, imagen PNG revisada visualmente |
 | Interacción del HTML | Pendiente de prueba en navegador | La herramienta bloqueó `file://`; se validó sintaxis JavaScript y se inspeccionó el SVG rasterizado, no la interacción del navegador |
 | Git del proyecto | Implementado y comprobado localmente | Rama `main`, primer commit `6235fa8` con 22 archivos; `.env`, dependencias, logs y `.tmp` excluidos. Identidad Git existente utilizada; primer commit verificado con árbol limpio |
-| GitHub | Pendiente de conexión y destino | Plugin disponible sugerido, instalación/conexión aún sin confirmar; `gh` no está instalado. Sin remoto configurado ni código subido. Repositorio privado nuevo propuesto; también se ofreció usar uno existente |
+| GitHub | Sincronizado y verificado el 2026-09-25 | `origin` apunta al repositorio existente aportado por el usuario. Push sin force, seguimiento `origin/main` y SHA local/remoto coincidente. Privacidad indicada por el usuario; no se cambió la visibilidad. Git Credential Manager permitió autenticar sin instalar plugin ni `gh` |
 | Coordinación persistente | Configurada y revisada | Perfil `.codex/agents/coordinador_blue.toml` instalado y validado como TOML; AGENTS.md y memoria presentes. El perfil `coordinador_blue` estuvo disponible y se invocó para la revisión acotada del 25 de septiembre |
 | Referencia de tienda | Aportada por el usuario; diseño pendiente | Fragancias Boutique (D-015): contenido de inicio y colección consultado por web. Navegador visual no disponible; apariencia e interacciones no comprobadas |
 
 Corrección posterior a la recapitulación del 25 de septiembre: se reconstruyó
 `backend/database/pruebas.sql` y se ejecutó la suite sobre un servidor temporal.
-Posteriormente se completó Git local (H-015); frontend continúa pendiente.
+Posteriormente se completó Git local (H-015) y la subida a GitHub (H-016);
+frontend continúa pendiente.
 No se modificó la migración instalada ni se
 consultó la base habitual del usuario; el runtime de Express sigue sin verificarse
 en esta revisión. Los antecedentes se conservan en H-013 y la nueva prueba en H-014.
@@ -57,13 +59,9 @@ en esta revisión. Los antecedentes se conservan en H-013 y la nueva prueba en H
 
 ## Próxima entrega propuesta
 
-**BF-024: conectar GitHub y guardar allí el repositorio**, tras confirmar acceso
-y destino. La propuesta es un repositorio privado nuevo; la elección sigue
-pendiente. Git local está listo y no se ha realizado ninguna subida.
-
-Después, **BF-010: conectar Express a PostgreSQL con un rol de permisos limitados.**
-BF-008 y BF-023 ya están completos. Conviene comprender producto/presentación.
-La entrega
+**BF-010: conectar Express a PostgreSQL con un rol de permisos limitados.**
+BF-008, BF-023 y BF-024 ya están completos. Conviene comprender
+producto/presentación. La entrega
 debe terminar con una consulta controlada desde el backend, sin contraseña en el
 código ni uso de `postgres` en la aplicación. No se inicia automáticamente por
 crear el coordinador.

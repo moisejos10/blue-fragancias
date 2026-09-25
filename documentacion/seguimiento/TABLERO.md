@@ -18,12 +18,12 @@ pueden ir en paralelo. No avanzar sin una petición que autorice el trabajo.
 | BF-007 | Configurar coordinador y memoria del proyecto | Perfil local válido e instalado, AGENTS.md y memoria presentes; perfil disponible e invocado para revisión acotada el 25 de septiembre |
 | BF-023 | Reconstruir `backend/database/pruebas.sql` y recuperar la suite temporal | Probado localmente el 2026-09-25: 73 comprobaciones SQL y ejecutor completo con código 0, incluido subtotal al COMMIT y disputa por la última unidad; migración y base habitual intactas |
 | BF-008 | Crear repositorio Git inicial y primer punto de recuperación | Rama `main`, commit `6235fa8`, 22 archivos revisados; dependencias, `.env`, logs y temporales excluidos; verificado localmente el 2026-09-25 |
+| BF-024 | Asociar GitHub y verificar el historial remoto | Repositorio existente `moisejos10/blue-fragancias`, privado según el usuario; `main` subida sin force, seguimiento `origin/main` y SHA local/remoto coincidente el 2026-09-25 |
 
 ## En desarrollo
 
-Sin implementación activa tras completar BF-008. El usuario planteó GitHub;
-acceso y destino remoto pendientes en BF-024. Siguiente secuencia propuesta:
-BF-024 → BF-010. Fragancias Boutique queda
+Sin implementación activa tras completar BF-024. Siguiente entrega propuesta:
+BF-010, conexión segura de Express con PostgreSQL. Fragancias Boutique queda
 registrada como guía de BF-013, con diseño concreto pendiente (D-015).
 
 ## En revisión
@@ -35,7 +35,6 @@ BF-009, separada de la entrega estática ya revisada.
 
 | ID | Prioridad | Tarea / resultado comprobable | Depende de |
 |---|---|---|---|
-| BF-024 | Alta | Conectar GitHub, crear o asociar repositorio acordado y verificar que el commit esté disponible en remoto; propuesta inicial privada | BF-008 completo; acceso GitHub y elección de repositorio pendientes |
 | BF-009 | Baja | Abrir HTML local en navegador y comprobar selección de tablas y zoom | BF-006; acceso del usuario o herramienta compatible |
 | BF-010 | Alta | Conectar Express con PostgreSQL mediante pool y rol limitado; ejecutar consulta controlada sin exponer secretos | BF-005, BF-008 y BF-023 completos |
 | BF-011 | Alta | API de catálogo con productos/presentaciones, filtros, paginación y validación de parámetros | BF-010 |
