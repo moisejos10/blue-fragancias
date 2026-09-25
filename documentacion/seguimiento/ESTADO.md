@@ -2,8 +2,10 @@
 
 Actualizado: 2026-09-25 · America/Caracas.
 
-**Última entrega:** BF-023 completado a petición del usuario: `pruebas.sql`
-reconstruido y suite completa probada localmente el 25 de septiembre.
+**Última entrega:** BF-008 completado: repositorio Git local en `main` y primer
+commit `6235fa8`, con 22 archivos revisados. El usuario planteó usar GitHub;
+conexión y repositorio remoto pendientes (BF-024). BF-023 conserva su prueba
+local exitosa del 25 de septiembre.
 [Fragancias Boutique](https://fraganciasboutique.com/) sigue como guía de tienda
 (D-015). El cierre anterior se conserva en
 [CIERRE-2026-09-23.md](CIERRE-2026-09-23.md).
@@ -31,13 +33,15 @@ todavía no está conectado a PostgreSQL ni existe frontend React.
 | Backend básico | Implementado; runtime no verificado en esta revisión | `backend/src/server.js`: JSON y `GET /api/health`; Express ^5.2.1 en `package.json` |
 | Documentación visual | Implementada y verificada parcialmente | HTML/SVG/PNG y guía en `documentacion`; 11 tablas, 16 FK y 110 campos comprobados, imagen PNG revisada visualmente |
 | Interacción del HTML | Pendiente de prueba en navegador | La herramienta bloqueó `file://`; se validó sintaxis JavaScript y se inspeccionó el SVG rasterizado, no la interacción del navegador |
-| Git del proyecto | Pendiente | Git instalado, pero no se encontró `.git` en la raíz durante la revisión |
+| Git del proyecto | Implementado y comprobado localmente | Rama `main`, primer commit `6235fa8` con 22 archivos; `.env`, dependencias, logs y `.tmp` excluidos. Identidad Git existente utilizada; primer commit verificado con árbol limpio |
+| GitHub | Pendiente de conexión y destino | Plugin disponible sugerido, instalación/conexión aún sin confirmar; `gh` no está instalado. Sin remoto configurado ni código subido. Repositorio privado nuevo propuesto; también se ofreció usar uno existente |
 | Coordinación persistente | Configurada y revisada | Perfil `.codex/agents/coordinador_blue.toml` instalado y validado como TOML; AGENTS.md y memoria presentes. El perfil `coordinador_blue` estuvo disponible y se invocó para la revisión acotada del 25 de septiembre |
 | Referencia de tienda | Aportada por el usuario; diseño pendiente | Fragancias Boutique (D-015): contenido de inicio y colección consultado por web. Navegador visual no disponible; apariencia e interacciones no comprobadas |
 
 Corrección posterior a la recapitulación del 25 de septiembre: se reconstruyó
 `backend/database/pruebas.sql` y se ejecutó la suite sobre un servidor temporal.
-Siguen pendientes Git y frontend. No se modificó la migración instalada ni se
+Posteriormente se completó Git local (H-015); frontend continúa pendiente.
+No se modificó la migración instalada ni se
 consultó la base habitual del usuario; el runtime de Express sigue sin verificarse
 en esta revisión. Los antecedentes se conservan en H-013 y la nueva prueba en H-014.
 
@@ -53,9 +57,13 @@ en esta revisión. Los antecedentes se conservan en H-013 y la nueva prueba en H
 
 ## Próxima entrega propuesta
 
-**BF-010: conectar Express a PostgreSQL con un rol de permisos limitados.**
-Antes: comprender producto/presentación y establecer el repositorio Git (BF-008).
-La reproducibilidad de las pruebas quedó resuelta con BF-023. La entrega
+**BF-024: conectar GitHub y guardar allí el repositorio**, tras confirmar acceso
+y destino. La propuesta es un repositorio privado nuevo; la elección sigue
+pendiente. Git local está listo y no se ha realizado ninguna subida.
+
+Después, **BF-010: conectar Express a PostgreSQL con un rol de permisos limitados.**
+BF-008 y BF-023 ya están completos. Conviene comprender producto/presentación.
+La entrega
 debe terminar con una consulta controlada desde el backend, sin contraseña en el
 código ni uso de `postgres` en la aplicación. No se inicia automáticamente por
 crear el coordinador.

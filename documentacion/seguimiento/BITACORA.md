@@ -180,6 +180,34 @@ de nuevo. Añadir las próximas entradas al final.
 - BF-023 terminado y reproducibilidad restablecida. Siguiente paso propuesto:
   BF-008 (Git), después BF-010 (conexión segura Express/PostgreSQL).
 
+## H-015 · Primer historial Git y preparación para GitHub · 2026-09-25
+
+- Petición: continuar tras BF-023; se inició el paso propuesto de Git y el usuario
+  planteó usar GitHub. Se explicó cómo Git local y GitHub trabajan juntos.
+- Revisión independiente: 22 archivos candidatos; exclusiones existentes de
+  `.env`, variantes de `.env`, `node_modules`, logs y `.tmp` adecuadas. Búsqueda
+  limitada de indicadores de credenciales sin imprimir valores: no se encontraron
+  credenciales reales en los candidatos; el ejecutor genera las suyas temporales.
+- Implementado: `git init -b main` y commit `6235fa8`,
+  `chore: guardar base inicial de Blue Fragancias`, con los 22 archivos revisados.
+  Se utilizó la identidad Git existente. No se alteró código ni migración SQL.
+- El sandbox impidió escribir el índice. Las operaciones necesarias se ejecutaron
+  con autorización fuera del sandbox. La carpeta `.git`, creada por el usuario del
+  entorno aislado, pasó al propietario de la sesión habitual para permitir el uso
+  normal de Git. No se añadieron excepciones globales de `safe.directory`.
+- Comprobación: lista preparada revisada, patrones de exclusión comprobados,
+  commit existente y estado limpio después del primer commit. `diff --check`
+  señaló líneas vacías finales preexistentes en tres archivos; se conservaron y
+  la revisión pasó desactivando únicamente `blank-at-eof` para ese comando.
+  No se repitieron pruebas SQL ni se inició Express por esta tarea de versionado.
+- GitHub: `gh` ausente; plugin encontrado y sugerido, sin instalación/conexión
+  confirmada. Se preguntó si crear repositorio privado nuevo o usar uno existente;
+  respuesta pendiente. Sin remoto configurado ni subida de archivos.
+- Seguimiento actualizado: ESTADO.md, TABLERO.md, DECISIONES.md y BITACORA.md.
+  BF-008 terminado; BF-024 registra la conexión y sincronización remota pendientes.
+- Siguiente paso: completar acceso/destino GitHub (BF-024); después conectar
+  Express con PostgreSQL (BF-010), con permisos limitados.
+
 ## Plantilla para próximas entradas
 
 ```text

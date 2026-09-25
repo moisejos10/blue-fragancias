@@ -21,6 +21,7 @@ actuales. «Aceptada» significa una elección del usuario o un diseño aplicado
 | D-013 | Aceptada por el usuario | Mantener documentación en `documentacion` | Petición explícita del diagrama y explicaciones |
 | D-014 | Aceptada por el usuario | Crear coordinador que organice, supervise y conserve memoria del trabajo | Solicitud actual; memoria en archivos del proyecto, sin programación de revisiones |
 | D-015 | Referencia aportada por el usuario · 2026-09-25 | Usar https://fraganciasboutique.com/ como guía aproximada para Blue Fragancias | Orienta la tienda; colores, composición y funciones concretas siguen por definir |
+| D-016 | Preferencia expresada; destino por definir · 2026-09-25 | Usar GitHub junto con Git local para alojar el historial del proyecto | El usuario preguntó por GitHub al iniciar BF-008. Repositorio privado nuevo propuesto; conexión, cuenta y elección de destino aún pendientes |
 
 ## Referencia de tienda · D-015
 
