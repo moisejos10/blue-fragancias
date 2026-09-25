@@ -25,6 +25,8 @@ pueden ir en paralelo. No avanzar sin una petición que autorice el trabajo.
 Sin implementación activa tras completar BF-024. Siguiente entrega propuesta:
 BF-010, conexión segura de Express con PostgreSQL. Fragancias Boutique queda
 registrada como guía de BF-013, con diseño concreto pendiente (D-015).
+El usuario confirmó GitHub listo y tomó un descanso el 25 de septiembre;
+se retomará BF-010 cuando regrese. No se inició trabajo en esa entrega.
 
 ## En revisión
 

@@ -232,6 +232,20 @@ de nuevo. Añadir las próximas entradas al final.
 - BF-024 terminado. Siguiente paso propuesto: BF-010, conectar Express con
   PostgreSQL mediante un rol de permisos limitados.
 
+## H-017 · Descanso y punto de retorno · 2026-09-25
+
+- El usuario confirmó que GitHub quedó listo, anunció un descanso y pidió conocer
+  el siguiente paso. No pidió iniciar una nueva implementación durante su ausencia.
+- Punto de retorno: BF-010. Explicar el papel del backend; preparar un usuario
+  PostgreSQL exclusivo con permisos limitados; configuración privada de conexión;
+  conectar Express y comprobar una consulta controlada desde el servidor.
+- Criterio de éxito propuesto: el backend consulta la base con el rol limitado y
+  maneja un fallo de conexión sin exponer credenciales. La API de catálogo se
+  mantiene como BF-011, después de esta conexión inicial.
+- Archivos actualizados: ESTADO.md, TABLERO.md y BITACORA.md. No se modificaron
+  código ni base de datos ni se repitieron pruebas SQL para este cierre documental.
+- No se programó ejecución ni recordatorio. Se continúa al regreso del usuario.
+
 ## Plantilla para próximas entradas
 
 ```text

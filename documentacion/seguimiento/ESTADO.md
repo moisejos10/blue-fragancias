@@ -11,6 +11,11 @@ local exitosa del 25 de septiembre. La tienda aún no está desplegada.
 (D-015). El cierre anterior se conserva en
 [CIERRE-2026-09-23.md](CIERRE-2026-09-23.md).
 
+**Punto de retorno del 25 de septiembre:** el usuario confirmó que GitHub quedó
+listo y tomó un descanso. Al regresar, comenzar BF-010 con una explicación de
+Express como intermediario y un usuario PostgreSQL exclusivo de la aplicación,
+con permisos limitados. No se inició esa implementación ni se programó trabajo.
+
 ## Objetivo
 
 Tienda catálogo de perfumes originales con React/JavaScript, Express/Node.js y
@@ -35,7 +40,7 @@ todavía no está conectado a PostgreSQL ni existe frontend React.
 | Documentación visual | Implementada y verificada parcialmente | HTML/SVG/PNG y guía en `documentacion`; 11 tablas, 16 FK y 110 campos comprobados, imagen PNG revisada visualmente |
 | Interacción del HTML | Pendiente de prueba en navegador | La herramienta bloqueó `file://`; se validó sintaxis JavaScript y se inspeccionó el SVG rasterizado, no la interacción del navegador |
 | Git del proyecto | Implementado y comprobado localmente | Rama `main`, primer commit `6235fa8` con 22 archivos; `.env`, dependencias, logs y `.tmp` excluidos. Identidad Git existente utilizada; primer commit verificado con árbol limpio |
-| GitHub | Sincronizado y verificado el 2026-09-25 | `origin` apunta al repositorio existente aportado por el usuario. Push sin force, seguimiento `origin/main` y SHA local/remoto coincidente. Privacidad indicada por el usuario; no se cambió la visibilidad. Git Credential Manager permitió autenticar sin instalar plugin ni `gh` |
+| GitHub | Sincronizado, verificado y confirmado por el usuario el 2026-09-25 | `origin` apunta al repositorio existente aportado por el usuario. Push sin force, seguimiento `origin/main` y SHA local/remoto coincidente. Privacidad indicada por el usuario; no se cambió la visibilidad. Git Credential Manager permitió autenticar sin instalar plugin ni `gh` |
 | Coordinación persistente | Configurada y revisada | Perfil `.codex/agents/coordinador_blue.toml` instalado y validado como TOML; AGENTS.md y memoria presentes. El perfil `coordinador_blue` estuvo disponible y se invocó para la revisión acotada del 25 de septiembre |
 | Referencia de tienda | Aportada por el usuario; diseño pendiente | Fragancias Boutique (D-015): contenido de inicio y colección consultado por web. Navegador visual no disponible; apariencia e interacciones no comprobadas |
 
