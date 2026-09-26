@@ -22,6 +22,7 @@ actuales. «Aceptada» significa una elección del usuario o un diseño aplicado
 | D-014 | Aceptada por el usuario | Crear coordinador que organice, supervise y conserve memoria del trabajo | Solicitud actual; memoria en archivos del proyecto, sin programación de revisiones |
 | D-015 | Referencia aportada por el usuario · 2026-09-25 | Usar https://fraganciasboutique.com/ como guía aproximada para Blue Fragancias | Orienta la tienda; colores, composición y funciones concretas siguen por definir |
 | D-016 | Aceptada por el usuario · 2026-09-25 | Usar el repositorio existente https://github.com/moisejos10/blue-fragancias.git junto con Git local | Tras la propuesta de crear uno nuevo, el usuario aportó este destino y confirmó que es privado. Rama `main` y remoto `origin`; no se cambia su visibilidad |
+| D-017 | Aceptada por el usuario · 2026-09-25 | Conservar `AGENTS.md` localmente durante el trabajo y retirarlo al finalizar; excluirlo de GitHub | El usuario no quiere ese archivo publicado. Implementado mediante copia local intacta y `/AGENTS.md` en `.gitignore`; ausente de `main` actual. Historial anterior conservado, sin purga ni force; retirada local pendiente en BF-025 |
 
 ## Referencia de tienda · D-015
 

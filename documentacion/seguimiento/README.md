@@ -14,8 +14,9 @@ al retomar el proyecto.
 | [BITACORA.md](BITACORA.md) | Registro cronológico de avances, pruebas y correcciones |
 
 Su configuración está en [coordinador_blue.toml](../../.codex/agents/coordinador_blue.toml).
-Los [acuerdos del proyecto](../../AGENTS.md) indican que se consulte y actualice
-esta memoria durante el trabajo.
+Los acuerdos de trabajo se conservan en `AGENTS.md`, un archivo local excluido
+de Git por decisión del usuario. Indican que se consulte y actualice esta memoria
+durante el trabajo; la copia local se retirará al finalizar (D-017/BF-025).
 
 Último cierre de jornada: [checklist del 23 de septiembre](CIERRE-2026-09-23.md).
 

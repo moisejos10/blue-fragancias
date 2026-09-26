@@ -16,6 +16,12 @@ listo y tomó un descanso. Al regresar, comenzar BF-010 con una explicación de
 Express como intermediario y un usuario PostgreSQL exclusivo de la aplicación,
 con permisos limitados. No se inició esa implementación ni se programó trabajo.
 
+**Cierre resuelto:** el usuario indicó conservar `AGENTS.md` mientras se trabaja
+y evitar publicarlo en GitHub. Se recuperó su copia local intacta, se añadió
+`/AGENTS.md` a `.gitignore` y se cerró el merge con `e823ad7`, subido y verificado.
+El archivo está ausente de `main` remota actual; permanece en commits anteriores.
+No se reescribió historial. Su retirada local al finalizar queda en D-017/BF-025.
+
 ## Objetivo
 
 Tienda catálogo de perfumes originales con React/JavaScript, Express/Node.js y
@@ -41,7 +47,7 @@ todavía no está conectado a PostgreSQL ni existe frontend React.
 | Interacción del HTML | Pendiente de prueba en navegador | La herramienta bloqueó `file://`; se validó sintaxis JavaScript y se inspeccionó el SVG rasterizado, no la interacción del navegador |
 | Git del proyecto | Implementado y comprobado localmente | Rama `main`, primer commit `6235fa8` con 22 archivos; `.env`, dependencias, logs y `.tmp` excluidos. Identidad Git existente utilizada; primer commit verificado con árbol limpio |
 | GitHub | Sincronizado, verificado y confirmado por el usuario el 2026-09-25 | `origin` apunta al repositorio existente aportado por el usuario. Push sin force, seguimiento `origin/main` y SHA local/remoto coincidente. Privacidad indicada por el usuario; no se cambió la visibilidad. Git Credential Manager permitió autenticar sin instalar plugin ni `gh` |
-| Coordinación persistente | Configurada y revisada | Perfil `.codex/agents/coordinador_blue.toml` instalado y validado como TOML; AGENTS.md y memoria presentes. El perfil `coordinador_blue` estuvo disponible y se invocó para la revisión acotada del 25 de septiembre |
+| Coordinación persistente | Perfil, memoria e instrucciones locales presentes | `AGENTS.md` recuperado idéntico a su contenido anterior y excluido de Git por decisión del usuario (D-017). Archivo ausente del árbol remoto actual, conservado en historial antiguo; merge finalizado. Perfil `.codex/agents/coordinador_blue.toml` disponible |
 | Referencia de tienda | Aportada por el usuario; diseño pendiente | Fragancias Boutique (D-015): contenido de inicio y colección consultado por web. Navegador visual no disponible; apariencia e interacciones no comprobadas |
 
 Corrección posterior a la recapitulación del 25 de septiembre: se reconstruyó

@@ -244,7 +244,39 @@ de nuevo. Añadir las próximas entradas al final.
   mantiene como BF-011, después de esta conexión inicial.
 - Archivos actualizados: ESTADO.md, TABLERO.md y BITACORA.md. No se modificaron
   código ni base de datos ni se repitieron pruebas SQL para este cierre documental.
+- Durante la sincronización, Git rechazó el primer push porque GitHub contenía
+  el commit nuevo `3a45504` (`Delete AGENTS.md`). Se consultó el cambio y se preparó
+  un merge sin commit con el cierre local `b37c3cc`, conservando ambos historiales.
+- Bloqueo: la revisión automática rechazó el comando de commit/push porque
+  confirmaría la eliminación de un archivo de instrucciones y controles sin
+  autorización explícita. Ese comando no se ejecutó. Quedaron el merge preparado
+  y cambios documentales locales, pendientes de decisión del usuario sobre
+  `AGENTS.md`. No se usó force ni se probó una vía alternativa para eludirlo.
 - No se programó ejecución ni recordatorio. Se continúa al regreso del usuario.
+
+## H-018 · Instrucciones conservadas localmente y cierre del merge · 2026-09-25
+
+- El usuario autorizó conservar `AGENTS.md` mientras se trabaja y retirarlo al
+  finalizar; indicó expresamente que no lo quiere publicado en GitHub.
+- Se restauró únicamente la copia de trabajo desde `b37c3cc`, manteniendo su
+  retirada del índice preparada por el merge remoto. Se añadió `/AGENTS.md` a
+  `.gitignore` para evitar incorporarlo a commits futuros por accidente.
+- La primera restauración en sandbox falló al crear `index.lock`; se completó
+  con autorización fuera del sandbox. Tras la nueva instrucción explícita y con
+  la copia local conservada, la integración se confirmó y subió como `e823ad7`.
+  La restricción previa de auto-review no se eludió: cambió la autorización y
+  se preservaron las instrucciones locales.
+- Verificación: hash de la copia local idéntico al original; archivo ignorado y
+  ausente del índice; `AGENTS.md` ausente del árbol de `origin/main`; SHA remoto
+  igual al local `e823ad76664b1b15b25ae50eb9f61bdec1284d4a`; sin `MERGE_HEAD`.
+- Límite explicado: sigue existiendo en commits anteriores. No se reescribió
+  historial ni se utilizó force. La retirada local al terminar queda registrada
+  en D-017/BF-025; no se ejecuta durante el desarrollo.
+- Archivos: copia local de `AGENTS.md`, `.gitignore`, README de seguimiento,
+  ESTADO.md, TABLERO.md, DECISIONES.md y BITACORA.md. El coordinador revisó el
+  alcance. No se cambió código de la tienda, base de datos ni migración y no se
+  repitieron pruebas SQL por este ajuste de Git y documentación.
+- Siguiente paso propuesto: BF-010, conectar Express a PostgreSQL con rol limitado.
 
 ## Plantilla para próximas entradas
 

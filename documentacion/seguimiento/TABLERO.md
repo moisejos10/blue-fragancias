@@ -27,6 +27,9 @@ BF-010, conexión segura de Express con PostgreSQL. Fragancias Boutique queda
 registrada como guía de BF-013, con diseño concreto pendiente (D-015).
 El usuario confirmó GitHub listo y tomó un descanso el 25 de septiembre;
 se retomará BF-010 cuando regrese. No se inició trabajo en esa entrega.
+El cierre pendiente quedó resuelto tras la decisión D-017: `AGENTS.md` se conserva
+localmente, ignorado por Git y fuera de la versión actual remota. Merge `e823ad7`
+subido y verificado; sin merge pendiente. Retirada local al cierre en BF-025.
 
 ## En revisión
 
@@ -38,6 +41,7 @@ BF-009, separada de la entrega estática ya revisada.
 | ID | Prioridad | Tarea / resultado comprobable | Depende de |
 |---|---|---|---|
 | BF-009 | Baja | Abrir HTML local en navegador y comprobar selección de tablas y zoom | BF-006; acceso del usuario o herramienta compatible |
+| BF-025 | Baja | Retirar la copia local de `AGENTS.md` al finalizar el trabajo, según D-017; mientras tanto conservarla excluida de Git | Cierre del desarrollo; no ejecutar ahora ni reescribir historial por esta tarea |
 | BF-010 | Alta | Conectar Express con PostgreSQL mediante pool y rol limitado; ejecutar consulta controlada sin exponer secretos | BF-005, BF-008 y BF-023 completos |
 | BF-011 | Alta | API de catálogo con productos/presentaciones, filtros, paginación y validación de parámetros | BF-010 |
 | BF-012 | Alta | Elegir fuente EUR/VES y validar fecha, redondeo y tratamiento de fallos | P-002, P-003; BF-010 |
