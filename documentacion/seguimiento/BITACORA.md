@@ -278,6 +278,46 @@ de nuevo. Añadir las próximas entradas al final.
   repitieron pruebas SQL por este ajuste de Git y documentación.
 - Siguiente paso propuesto: BF-010, conectar Express a PostgreSQL con rol limitado.
 
+## H-019 · Backend PostgreSQL preparado y probado; configuración habitual pendiente · 2026-09-25
+
+- Petición: «vamos con postgrets», continuación de BF-010. Se leyó la memoria,
+  el backend y las reglas locales antes de implementar.
+- Comprobación del entorno: Node 22.22.2, PostgreSQL 18.6 y servicio activo.
+  Una consulta administrativa no interactiva fue rechazada por falta de contraseña;
+  no se consultaron ni modificaron datos de la base habitual. Se pidió al usuario
+  abrir SQL Shell localmente, sin compartir su contraseña.
+- Implementado: `002_rol_backend.sql`, que crea un rol nuevo `blue_fragancias_app`
+  con lectura de cuatro tablas de catálogo y verifica permisos heredados inesperados.
+  Si el rol ya existe, aborta sin cambiarlo. No otorga escrituras ni acceso a tablas
+  privadas; no modifica permisos de PUBLIC ni otras bases. TEMP/CONNECT generales
+  de PostgreSQL se documentan como límite, sin prometer aislamiento total.
+- Backend: dependencia `pg` ^8.23.0; configuración validada, pool máximo 5 y tiempos
+  límite; `/api/health` y `/api/health/db` con consulta parametrizada y HTTP 200/503
+  sin SQL, credenciales ni datos privados. Cierre de HTTP y pool al detenerse.
+- Configuración: `.env.example` versionable sin secreto, `.env` local ignorado y
+  todavía sin PGPASSWORD. Scripts `db:check`, `start` y `dev` cargan `.env` mediante
+  Node. `npm test` reemplaza el marcador anterior por siete pruebas funcionales.
+- Revisión independiente: worker del backend y auditoría final de migración,
+  permisos y errores; sin defectos bloqueantes encontrados. Solo el principal
+  escribe el seguimiento. Las instrucciones locales AGENTS.md se actualizaron
+  con los comandos nuevos, manteniéndolo fuera de Git.
+- Instalación de pg: el sandbox bloqueó npm; la descarga autorizada desde npm
+  terminó correctamente, con 14 paquetes añadidos y auditoría de npm sin hallazgos.
+- Comprobaciones nuevas: `npm test` aprobó 7/7. `test-schema.cjs` ampliado terminó
+  con código 0 en PostgreSQL temporal: rollback ante permiso privado de PUBLIC,
+  autenticación real del rol limitado, lecturas y escrituras denegadas, repetición
+  sin cambiar contraseña, tabla futura inaccesible, Express 200 con catálogo vacío
+  y 503 con contraseña de prueba incorrecta; también pasaron las 73 comprobaciones
+  SQL previas, subtotal al COMMIT y disputa por la última unidad.
+- Comprobación habitual: `npm run db:check` se detuvo con «Falta configurar PGPASSWORD».
+  BF-010 queda en revisión, no terminado ni desplegado. Siguiente acción del usuario:
+  ejecutar 002 en SQL Shell, usar `\password blue_fragancias_app`, completar `.env`
+  localmente y verificar conexión/HTTP. Guía paso a paso en `backend/README.md`.
+- Archivos: `backend/src/{config,db,app,server}.js`, `backend/test/*.test.cjs`,
+  `backend/scripts/check-db.cjs`, `backend/.env.example`, paquete/lock, migración 002,
+  `test-backend.cjs`, ejecutor SQL y guías del backend; ESTADO/TABLERO/BITACORA.
+  La migración 001 permanece intacta; `.env` y AGENTS.md permanecen locales.
+
 ## Plantilla para próximas entradas
 
 ```text

@@ -22,19 +22,17 @@ pueden ir en paralelo. No avanzar sin una petición que autorice el trabajo.
 
 ## En desarrollo
 
-Sin implementación activa tras completar BF-024. Siguiente entrega propuesta:
-BF-010, conexión segura de Express con PostgreSQL. Fragancias Boutique queda
-registrada como guía de BF-013, con diseño concreto pendiente (D-015).
-El usuario confirmó GitHub listo y tomó un descanso el 25 de septiembre;
-se retomará BF-010 cuando regrese. No se inició trabajo en esa entrega.
-El cierre pendiente quedó resuelto tras la decisión D-017: `AGENTS.md` se conserva
-localmente, ignorado por Git y fuera de la versión actual remota. Merge `e823ad7`
-subido y verificado; sin merge pendiente. Retirada local al cierre en BF-025.
+BF-010 implementado y probado en PostgreSQL temporal; pasa a revisión mientras
+el usuario configura su conexión habitual. No se inició BF-011 ni frontend.
+`AGENTS.md` sigue local e ignorado por Git (D-017); retirada al cierre en BF-025.
 
 ## En revisión
 
-Sin tareas en esta columna. La interacción del HTML es una comprobación pendiente
-BF-009, separada de la entrega estática ya revisada.
+| ID | Entrega | Evidencia y paso pendiente |
+|---|---|---|
+| BF-010 | Conexión Express/PostgreSQL con pool y rol limitado | 7 pruebas unitarias y suite temporal ampliada aprobadas. Pendiente ejecutar `002_rol_backend.sql` en la base habitual, asignar contraseña local, completar `.env` y confirmar `db:check` + HTTP 200 |
+
+La interacción del HTML sigue como comprobación pendiente BF-009.
 
 ## Pendiente
 
@@ -42,7 +40,6 @@ BF-009, separada de la entrega estática ya revisada.
 |---|---|---|---|
 | BF-009 | Baja | Abrir HTML local en navegador y comprobar selección de tablas y zoom | BF-006; acceso del usuario o herramienta compatible |
 | BF-025 | Baja | Retirar la copia local de `AGENTS.md` al finalizar el trabajo, según D-017; mientras tanto conservarla excluida de Git | Cierre del desarrollo; no ejecutar ahora ni reescribir historial por esta tarea |
-| BF-010 | Alta | Conectar Express con PostgreSQL mediante pool y rol limitado; ejecutar consulta controlada sin exponer secretos | BF-005, BF-008 y BF-023 completos |
 | BF-011 | Alta | API de catálogo con productos/presentaciones, filtros, paginación y validación de parámetros | BF-010 |
 | BF-012 | Alta | Elegir fuente EUR/VES y validar fecha, redondeo y tratamiento de fallos | P-002, P-003; BF-010 |
 | BF-013 | Alta | Base React y diseño adaptable, guiado por la referencia D-015; mostrar un producto real de la API y estados de carga/error | BF-011; recursos visuales iniciales y diseño por concretar |

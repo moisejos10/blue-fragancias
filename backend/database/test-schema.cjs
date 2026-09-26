@@ -1,5 +1,5 @@
 // Pruebas reales en un PostgreSQL desechable, sin usar el servicio ni su contrasena.
-// Requiere Node.js y los binarios de PostgreSQL 18. No instala dependencias.
+// Requiere Node.js, PostgreSQL 18 y npm ci previo en backend. No instala dependencias.
 const fs = require('node:fs');
 const path = require('node:path');
 const net = require('node:net');
@@ -89,6 +89,7 @@ async function main() {
   run('psql', [...connection, '-d', 'postgres', '-f', path.join(__dirname, 'instalar.sql')]);
   assert.equal(sql("SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'").stdout.trim(), '11');
   console.log('Instalacion completa de las 11 tablas: OK');
+  await require('./test-backend.cjs')({ run, connection, port, password });
   run('psql', [...connection, '-d', 'blue_fragancias', '-f', path.join(__dirname, 'pruebas.sql')]);
   console.log('Restricciones, calculos, snapshots, pagos e inventario: OK');
 

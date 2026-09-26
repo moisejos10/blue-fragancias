@@ -128,10 +128,11 @@ pero no existe aun un proceso que libere las reservas vencidas automaticamente.
 Esto es el esquema, no una API ni un sistema de autenticacion completo. Antes de
 conectar la tienda faltan:
 
-1. Crear un rol de base de datos para el backend, sin privilegios de administrador,
-   y conceder solo los permisos necesarios. No usar `postgres` en la aplicacion.
-   Los saldos de variantes deben escribirse solo mediante movimientos, nunca con
-   SQL de actualizacion directo enviado desde una ruta administrativa.
+1. Aplicar `002_rol_backend.sql` y configurar la contraseña privada siguiendo
+   [la guia del backend](../README.md). Ya esta implementado y probado en servidor
+   temporal; aplicacion en la base habitual pendiente. El rol inicial solo lee
+   catalogo. Los permisos de escritura se diseñaran despues: los saldos de variantes
+   deben modificarse mediante movimientos, nunca desde actualizaciones directas.
 2. Implementar autenticacion, Argon2id, validacion, consultas parametrizadas y
    autorizacion. El prefijo del hash en la tabla no sustituye el hash real.
 3. Calcular precios y copiar snapshots en el servidor; gestionar claves de
@@ -150,10 +151,12 @@ conectar la tienda faltan:
 
 ## Pruebas reproducibles
 
-**Verificado el 2026-09-25:** `pruebas.sql` fue reconstruido y la suite completa
-terminó con código de salida 0 en PostgreSQL 18 temporal. Incluye 73 comprobaciones
-SQL, más las verificaciones del ejecutor sobre instalación, reejecución,
-subtotal al COMMIT y dos conexiones que disputan la última unidad.
+**Verificado el 2026-09-25:** la suite completa terminó con código de salida 0
+en PostgreSQL 18 temporal. Incluye 73 comprobaciones SQL, instalación, reejecución,
+subtotal al COMMIT y dos conexiones que disputan la última unidad. BF-010 añadió
+la migración de rol y `test-backend.cjs`: autenticación real con permisos limitados,
+rechazo de lectura privada/escrituras y HTTP 200/503 desde Express. Instalar las
+dependencias con `npm ci` desde `backend` antes de ejecutarla en una copia nueva.
 BF-023 completado en [el tablero del proyecto](../../documentacion/seguimiento/TABLERO.md).
 
 Desde la carpeta raiz del proyecto:
