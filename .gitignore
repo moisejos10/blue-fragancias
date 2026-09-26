@@ -4,4 +4,4 @@ node_modules/
 !.env.example
 *.log
 .tmp/
-
+/AGENTS.md
