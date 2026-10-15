@@ -6,6 +6,11 @@ No se crean administradores, contraseñas, productos ni tasas ficticias en la ti
 
 ## Instalacion
 
+La base habitual ya tiene 001 y el rol 002 confirmados en el seguimiento.
+Para activar el nuevo panel, sigue [su guía](../../documentacion/PANEL-ADMINISTRACION.md)
+y aplica únicamente 003. Los pasos siguientes describen la instalación inicial
+para una base nueva; no repetirlos sobre la base ya preparada.
+
 Si ya tienes una sesion de **psql** abierta como `postgres`, ejecuta:
 
 ```text
@@ -57,6 +62,10 @@ Para estudiar una tabla y ver sus claves y restricciones:
 | `pagos` | Metodo, moneda real, importe, referencia y revision administrativa |
 | `movimientos_inventario` | Entradas, reservas, liberaciones, ventas y devoluciones |
 | `historial_pedidos` | Registro automatico de la creacion y cambios de estado |
+
+La migración 003 añade `sesiones_admin` y `configuracion_tienda` (13 tablas en
+total tras aplicarla). Los diagramas de esta guía representan el esquema inicial
+de 11 tablas; no incorporan todavía esta ampliación administrativa.
 
 ```mermaid
 erDiagram
@@ -125,16 +134,17 @@ pero no existe aun un proceso que libere las reservas vencidas automaticamente.
 
 ## Limites y siguientes pasos
 
-Esto es el esquema, no una API ni un sistema de autenticacion completo. Antes de
-conectar la tienda faltan:
+Esta guía describe el esquema. Catálogo y administración tienen implementación
+Express/React y pruebas temporales; la activación habitual del panel está pendiente.
+Los siguientes pasos son:
 
-1. Aplicar `002_rol_backend.sql` y configurar la contraseña privada siguiendo
-   [la guia del backend](../README.md). Ya esta implementado y probado en servidor
-   temporal; aplicacion en la base habitual pendiente. El rol inicial solo lee
-   catalogo. Los permisos de escritura se diseñaran despues: los saldos de variantes
-   deben modificarse mediante movimientos, nunca desde actualizaciones directas.
-2. Implementar autenticacion, Argon2id, validacion, consultas parametrizadas y
-   autorizacion. El prefijo del hash en la tabla no sustituye el hash real.
+1. Activar 003 y crear la primera cuenta según [la guía del panel](../../documentacion/PANEL-ADMINISTRACION.md).
+   002 y la conexión habitual ya fueron comprobados. 003 permite editar columnas
+   comerciales y registrar entradas por función acotada; el rol de la API no puede
+   escribir saldos directamente.
+2. Revisar la interacción del panel y el primer producto real. Argon2id, sesiones,
+   validación y autorización están implementados y probados en servidor temporal;
+   recuperación de contraseña y cuentas adicionales siguen pendientes.
 3. Calcular precios y copiar snapshots en el servidor; gestionar claves de
    idempotencia y transacciones. Tras confirmar, impedir ediciones comerciales
    arbitrarias del pedido/detalle; cualquier correccion debe tener trazabilidad.
@@ -150,6 +160,12 @@ conectar la tienda faltan:
    un mecanismo de autorizacion para consultar datos personales.
 
 ## Pruebas reproducibles
+
+Ampliación del 2026-10-01: catálogo con filtros y panel 003 probados con código 0.
+`test-admin.cjs` comprueba permisos de columnas, primer administrador, acceso y
+caducidad, CSRF, transacciones, edición concurrente, inventario idempotente, fotos
+privadas/publicadas, reemplazo/limpieza de archivos y logo. Usa el mismo servidor
+temporal, con una guardia de usuario/directorio antes de cualquier fixture.
 
 **Verificado el 2026-09-25:** la suite completa terminó con código de salida 0
 en PostgreSQL 18 temporal. Incluye 73 comprobaciones SQL, instalación, reejecución,

@@ -318,6 +318,306 @@ de nuevo. Añadir las próximas entradas al final.
   `test-backend.cjs`, ejecutor SQL y guías del backend; ESTADO/TABLERO/BITACORA.
   La migración 001 permanece intacta; `.env` y AGENTS.md permanecen locales.
 
+## H-020 · Rol aplicado en la base habitual, confirmado por captura · 2026-09-25
+
+- BF-010: tras aclarar la diferencia entre las preguntas de conexión y el prompt
+  de psql, el usuario entró como `postgres` a `blue_fragancias` y ejecutó 002.
+- Evidencia aportada: captura de SQL Shell 18.6 con `BEGIN`, `CREATE ROLE`,
+  permisos, `ALTER ROLE`, verificaciones `DO`, `COMMIT` y mensaje final de éxito.
+  Aplicación confirmada por el usuario; el agente no abrió otra conexión ni
+  consultó datos de su base habitual.
+- El siguiente paso es ejecutar `\password blue_fragancias_app` en esa sesión,
+  elegir una contraseña local y después completar el `.env` privado.
+  No repetir la migración. Asignación de contraseña y autenticación aún pendientes.
+- Archivos actualizados: ESTADO.md, TABLERO.md y BITACORA.md. Solo seguimiento;
+  no se cambió código ni se repitieron pruebas SQL por esta confirmación.
+- BF-010 permanece en revisión hasta comprobar `npm run db:check` y HTTP 200
+  con la configuración habitual. Las pruebas temporales anteriores son H-019.
+
+## H-021 · Contraseña del rol asignada según el usuario · 2026-09-25
+
+- El usuario respondió «listo» al paso `\password blue_fragancias_app`.
+  Se registra como confirmación del usuario, no como autenticación comprobada.
+- Se comprobó que `backend/.env` existe y está ignorado por Git; no se leyó ni
+  mostró su contenido. Se consultó únicamente `.env.example`, sin credenciales.
+- Siguiente paso: el usuario guarda la misma contraseña en `PGPASSWORD` dentro
+  del `.env` local; luego comprobar `db:check` y HTTP con el rol limitado.
+- Archivos: ESTADO.md, TABLERO.md y BITACORA.md. Sin cambios de código ni
+  nuevas pruebas SQL; BF-010 permanece en revisión.
+
+## H-022 · Cierre de conexión habitual · 2026-09-26
+
+- Se registra la evidencia de la sesión anterior, tras confirmar el usuario
+  «guardado». No son pruebas nuevas ejecutadas el 26 de septiembre.
+- `npm run db:check` terminó con código 0: rol y base previstos y lectura de
+  las cuatro tablas del catálogo correctos.
+- Express y el pool habitual, con configuración del `.env` privado, respondieron
+  HTTP 200 en /api/health y /api/health/db en un puerto efímero de loopback.
+  La segunda respuesta fue únicamente {status:ok}, con Cache-Control no-store.
+  Servidor y pool se cerraron. Sin escrituras ni exposición de credenciales.
+- El coordinador revisó los criterios de cierre. BF-010 terminado localmente,
+  no desplegado. Evidencia del manejo de 503 conservada en H-019.
+- Archivos: ESTADO.md, TABLERO.md y BITACORA.md; cierre documental local,
+  pendiente de sincronización. Código de conexión ya subido en ddf9ffc.
+- Siguiente entrega propuesta: BF-011, comenzar por GET /api/productos.
+
+## H-023 · Guía para visualizar la base en pgAdmin · 2026-09-26
+
+- Petición: ver gráficamente la base existente en pgAdmin. Se explica localizar
+  blue_fragancias y generar su ERD; pendiente de confirmación visual del usuario.
+  No se operó pgAdmin ni se modificó la base.
+- Referencia consultada: documentación oficial de pgAdmin, ERD Tool y Menu Bar.
+- Se corrigió un fallo de codificación de la escritura documental anterior:
+  algunos acentos quedaron como interrogaciones y sustituciones no se aplicaron.
+  Se completó el cierre H-022 que faltaba y se reconciliaron los estados pendientes
+  antiguos. No se alteró la evidencia ni se repitieron pruebas de base de datos.
+- Archivos: ESTADO.md, TABLERO.md y BITACORA.md; revisión de diff y codificación.
+- Siguiente paso: confirmar que el usuario ve las tablas y relaciones en pgAdmin.
+
+## H-024 · Primer listado de catálogo y paginación · 2026-09-26
+
+- El usuario confirmó «listo» tras la guía de pgAdmin y pidió seguir. La captura
+  anterior demuestra las 11 tablas; el ERD queda confirmado por el usuario, no
+  inspeccionado por el agente. Se inicia el primer paso de BF-011.
+- Implementado GET /api/productos: campos públicos explícitos, productos activos,
+  variantes activas, marca e imágenes ordenadas. IDs/decimales como texto, precio
+  de referencia USD, disponibilidad booleana sin revelar saldos ni reservar stock.
+- Paginación por ID ascendente: pagina=1 y limite=20 por defecto, topes 10000/50,
+  fila adicional para hay_mas. Rechaza parámetros desconocidos, repetidos o fuera
+  de rango con 400, antes de consultar SQL. Fallos SQL: 503 genérico, sin secretos.
+- Imágenes conservan clave_archivo, sin inventar hosting/URLs. Producto activo
+  sin variantes activas devuelve lista vacía. No se añadió tasa ni cálculo en Bs.
+- Revisión acotada del coordinador, autorizada por AGENTS: sin bloqueantes;
+  contrato y límites documentados. Solo el principal editó seguimiento.
+- npm test: 11/11 aprobadas. PostgreSQL temporal: el primer intento detectó
+  un fixture de inventario sin administrador; se corrigió el fixture con un
+  administrador temporal y movimiento de entrada. La segunda ejecución completa
+  terminó con código 0, incluidas pruebas previas de esquema y concurrencia.
+- Prueba nueva de SQL/HTTP: catálogo vacío, exclusión de inactivos, IDs mayores
+  de 2^53, precios exactos, disponibilidad, orden de imágenes, páginas sucesivas
+  y vacías. Fixtures en transacción del servidor temporal, con rol limitado para
+  las lecturas y rollback final; no se avanzaron secuencias ni se alteró la base habitual.
+- Comprobación de lectura habitual con .env privado: HTTP 200 en /api/productos
+  con pagina=1, limite=5, productos=[], hay_mas=false. Pool y servidor efímero
+  cerrados; no quedaron procesos de la comprobación sirviendo la aplicación.
+- Archivos: src/catalogo.js, src/app.js, test/app.test.cjs,
+  database/test-catalogo.cjs, database/test-backend.cjs, backend/README.md y
+  ESTADO/TABLERO/BITACORA. Migraciones 001/002 intactas. .env y AGENTS ignorados.
+- Resultado: implementado y probado localmente, no desplegado; cambios de esta
+  entrega aún sin sincronizar a GitHub. BF-011 sigue En desarrollo por filtros
+  pendientes. Próximo paso: usuario abre el listado y conoce su respuesta JSON.
+
+## H-025 · Filtros y búsqueda para el catálogo · 2026-10-01 (America/Caracas)
+
+- Tarea del tablero / petición: continuar BF-011 después del listado y la
+  paginación implementados en H-024.
+- Acción y motivo: GET /api/productos ahora acepta búsqueda parcial `q` en nombre,
+  descripción, familia olfativa y marca; marca exacta sin distinguir mayúsculas;
+  género y tipo de presentación mediante valores permitidos. El tipo requiere una
+  variante activa. Los filtros ocurren antes de paginar. Se mantienen parámetros
+  SQL y errores 400 para valores inválidos, duplicados o desconocidos.
+- Archivos afectados: backend/src/catalogo.js, backend/test/app.test.cjs (expectativa
+  de parámetros actualizada), backend/README.md, ESTADO.md, TABLERO.md y BITACORA.md.
+- Comprobación: revisión del cambio y actualización de documentación. No se
+  ejecutaron pruebas; los filtros todavía no están probados localmente. Las
+  comprobaciones anteriores de listado y paginación están en H-024.
+- Decisiones/preguntas: sin cambio de reglas de negocio. No se incorporaron datos
+  de productos ni cambios a la base habitual.
+- Siguiente paso: abrir `/api/productos`, explicar su JSON y probar los filtros;
+  después cerrar BF-011 según el resultado. BF-013/frontend sigue pendiente.
+
+## H-026 · Revisión y cierre local de BF-011 · 2026-10-01 (America/Caracas)
+
+- Petición: «ok revisa y continua». Revisión acotada y solo lectura del coordinador;
+  el principal implementó correcciones, pruebas y seguimiento.
+- Corrección: q ahora busca literalmente %, _, ! y barra inversa; antes ILIKE
+  interpretaba comodines. Rechaza NUL en textos antes de SQL. Documentado que tipo
+  selecciona productos con variante activa coincidente y devuelve todas las activas.
+- Pruebas nuevas: npm test 11/11; se amplió validación HTTP de textos vacíos,
+  largos, duplicados, arreglos y opciones inválidas. SQL/HTTP temporal ampliado con
+  los cuatro campos de búsqueda, marca exacta, género, tipo, AND, inactivos,
+  caracteres literales, texto parecido a SQL y paginación posterior al filtro.
+- Primer intento de PostgreSQL temporal bloqueado por pg_ctl (token restringido
+  del sandbox); reejecución autorizada fuera del sandbox: código 0, incluidos rol,
+  precisión, imágenes, rollback, restricciones e inventario concurrente.
+  El directorio del intento fallido se limpió tras verificar su destino dentro
+  de .tmp y ausencia de postmaster.pid.
+- Archivos: backend/src/catalogo.js, test/app.test.cjs, database/test-catalogo.cjs,
+  backend/README.md y seguimiento. Sin cambios en migraciones ni datos habituales.
+- Resultado: BF-011 terminado localmente y pendiente de sincronizar a GitHub.
+  La evidencia anterior H-025 queda sustituida por estas pruebas nuevas, sin borrar
+  su registro. Siguiente entrega: primera pantalla de BF-013.
+
+## H-027 · Primera pantalla React del catálogo · 2026-10-01 (America/Caracas)
+
+- El usuario eligió «azul cielo blanco y negro» (D-018). Se creó frontend React/Vite
+  con cabecera, presentación visual propia y catálogo conectado a /api/productos.
+- Implementado: formulario de búsqueda/marca/género/tipo, limpiar filtros,
+  paginación, presentaciones desplegables y estados de carga, error/reintento y vacío.
+  La revisión del coordinador detectó que «Desde» podía corresponder a otro tipo;
+  se corrigió para calcularlo solo entre variantes del tipo seleccionado. Se limita
+  la navegación al máximo de 10000 páginas admitido por el backend.
+  Peticiones anteriores se cancelan; timeout de 10 segundos. Referencias USD;
+  fotos públicas y producto real pendientes. La ilustración decorativa es propia.
+- Archivos: frontend/package.json y lock, index.html, vite.config.js,
+  src/main.jsx, src/App.jsx, src/styles.css, frontend/README.md y .gitignore (dist).
+  Referencias técnicas oficiales React/Vite consultadas; D-015 consultada como guía
+  de contenido, sin copiar fotos, textos ni productos de la tienda de referencia.
+- Dependencias instaladas: React 19.3.0, Vite 8.3.2 y plugin React 6.1.1;
+  npm reportó cero vulnerabilidades al instalar. Build de producción aprobado.
+- Comprobación de lectura: frontend HTTP 200; proxy Vite → Express → base habitual
+  con q=bleu, genero=masculino, tipo=frasco: HTTP 200, productos=[], pagina=1,
+  limite=20, hay_mas=false. No se agregaron productos a la base habitual.
+- Límite: inventario de navegadores vacío; abrir iab devolvió Browser is not
+  available. No se afirma inspección visual ni prueba interactiva de React.
+- Backend puerto 3000 y Vite 5173 quedaron iniciados para que el usuario vea la
+  pantalla. El servidor SQL temporal exitoso y sus fixtures se cerraron/limpiaron.
+  Arranque reproducible en frontend/README.md; disponibilidad depende de procesos.
+- Estado: BF-013 parcial, no desplegado ni confirmado visualmente por el usuario.
+  Próximo paso: revisión escritorio/móvil y primer producto real con foto; luego
+  concretar fuente/vigencia EUR/VES (BF-012) antes de precios en Bs.
+
+## H-028 · Carpeta para imágenes de la tienda · 2026-10-01 (America/Caracas)
+
+- Petición: crear una carpeta para que el usuario facilite logos y fotos de perfumes.
+- Creada `imagenes-tienda/` con `logos`, `perfumes`, `banners` y `referencias`;
+  README con ejemplos de nombres y organización. Archivos .gitkeep conservan
+  las subcarpetas vacías en Git.
+- Archivos: nueva carpeta y ESTADO/TABLERO/BITACORA. Comprobación de existencia
+  y estructura; sin ejecutar pruebas de aplicación por este cambio de carpetas.
+- Resultado: espacio preparado; imágenes todavía pendientes de aportar y de
+  incorporar al frontend. BF-013 continúa parcial.
+- Siguiente paso: el usuario copia las imágenes y avisa para revisarlas.
+
+## H-029 · Imágenes provisionales y diseño de tienda · 2026-10-01 (America/Caracas)
+
+- El usuario autorizó continuar con imágenes de referencia y aportar después
+  logo/fotos reales (D-019), manteniendo la paleta D-018.
+- Tres imágenes propias generadas mediante ImageGen integrado: cielo, floral y
+  amaderada. Salidas inspeccionadas y copiadas a frontend/public/referencias;
+  prompts completos y usos registrados en documentacion/RECURSOS-VISUALES.md.
+- Portada fotográfica, sección de inspiración con botones de búsqueda, marcador
+  visible de imagen provisional y sustituto para productos sin foto. No se
+  inventaron productos/precios ni se cargaron fixtures en la base habitual.
+- El frontend consulta /api/tienda para mostrar un logo subido y las URLs públicas
+  controladas del catálogo para fotos reales. Enlace /admin añadido al pie.
+- Archivos: frontend/src/App.jsx, styles.css, public/referencias, README y guía
+  visual. Compilación aprobada; HTTP 200 de portada y las tres imágenes.
+- Limitación: navegador conectado no disponible (inventario vacío); apariencia
+  e interacciones React todavía no inspeccionadas. BF-013 permanece parcial.
+
+## H-030 · Panel gráfico y administración del catálogo · 2026-10-01 (America/Caracas)
+
+- Petición: catálogo actualizable de forma gráfica sin editar código (D-020);
+  usuario pidió continuar tras interrupciones. Revisión acotada del coordinador,
+  solo lectura; principal único escritor de código y seguimiento.
+- Implementado: /admin con login, listado/búsqueda, crear/editar productos y
+  presentaciones/precios, guardar borrador, publicar/ocultar, portada de producto,
+  logo y entradas positivas de inventario. Formularios conectados a API/PostgreSQL.
+- Autenticación Argon2id y sesión de 8 horas con hash de token en PostgreSQL;
+  cookie HttpOnly/SameSite, Secure en producción, origen permitido + CSRF en
+  escrituras y limitador de intentos. Sin registro HTTP público de administradores.
+- Nueva 003 (001/002 intactas): sesiones_admin, configuracion_tienda, permisos
+  por columnas y función de entradas con rol técnico NOLOGIN. El app no recibe
+  INSERT/UPDATE de saldos, inserción libre de movimientos ni lectura de pedidos/pagos.
+  Bootstrap único revoca su permiso al crear la primera cuenta.
+- Productos y variantes se guardan transaccionalmente. Versiones detectan edición
+  concurrente; entradas tienen clave idempotente, motivo y administrador de sesión.
+  No se implementaron ajustes negativos, reservas/ventas ni devoluciones desde el panel.
+- Subidas autenticadas antes del multipart: hasta 5 MB/20 MP, JPG/PNG/WebP estático,
+  validación real y reexportación WebP. Nombres UUID; fotos de borradores privadas;
+  reemplazos sin referencias se limpian tras COMMIT. Una portada por producto.
+- Revisión del coordinador resuelta: rechazar variante NULL en función SQL,
+  revocar bootstrap al usarlo y limpiar imágenes/logo reemplazados. Pruebas nuevas
+  de estas correcciones aprobadas. Guía inicial y uso cotidiano en
+  documentacion/PANEL-ADMINISTRACION.md; scripts interactivos admin:instalar/crear.
+- Archivos: backend/src/admin-auth.js, admin-catalogo.js, media.js, app.js,
+  catalogo.js; migración 003, test-admin.cjs, test-schema.cjs, app.test.cjs;
+  scripts/crear-admin.cjs e instalar-admin.cjs; package/lock/.env.example;
+  frontend/src/Admin.jsx, admin.css, main.jsx, vite.config.js; .gitignore y guías.
+- Comprobaciones nuevas: npm test 12/12; suite PostgreSQL temporal código 0,
+  incluidos permisos/login/logout/caducidad/CSRF, rollback, precisión, edición
+  concurrente, idempotencia, fotos/privacidad/reemplazo/limpieza y logo, más pruebas
+  anteriores de esquema/inventario. Scripts CLI: node --check correcto.
+  Build React aprobado. Servidor SQL temporal cerrado y su directorio limpiado.
+- Lectura habitual por proxy: /, /admin, tres referencias, /api/tienda y
+  /api/productos HTTP 200; /api/admin/sesion sin cookie: 401. Estas respuestas
+  no demuestran activación ni guardado del panel en la base habitual.
+- Activación habitual pendiente: intento administrativo psql -w sin credenciales
+  guardadas respondió «no password supplied». No se aplicó 003 ni se crearon
+  cuentas/datos en la base habitual. El propietario introduce su clave en terminal.
+  El .env privado se utiliza para el backend sin mostrar su contenido.
+- Backend de desarrollo iniciado y Vite existente en 5173 reutilizado tras detectar
+  puerto ocupado; módulos/recursos actuales responden HTTP. Disponibilidad depende
+  de procesos locales. Sin inspección visual por falta de navegador conectado.
+- Estado: BF-014/015 en revisión (código/pruebas temporales completos, instalación
+  habitual y clics reales pendientes); BF-013 parcial. Todo local, sin push/despliegue.
+- Siguiente paso: ejecutar los dos comandos iniciales de la guía, entrar al panel
+  y crear el primer perfume real. Respaldos de fotos/base, HTTPS, recuperación de
+  contraseña y limitador compartido quedan pendientes según alcance/despliegue.
+
+## H-031 · Cuenta administrativa solicitada · 2026-10-01 (America/Caracas)
+
+- Petición: crear la cuenta del propietario con las credenciales que eligió.
+- Corrección del estado anterior: la consulta nueva a la base habitual detectó
+  sesiones_admin, configuracion_tienda y crear_primer_administrador presentes.
+  No se ejecutó de nuevo 003; no se verificó quién la instaló.
+- Se creó la primera cuenta mediante la función autorizada del rol limitado.
+  Contraseña recibida en memoria, sin eco, y almacenada como hash Argon2id;
+  credenciales excluidas de código, documentación y salidas.
+- Comprobación nueva en base habitual: login HTTP 200, sesión autenticada HTTP
+  200 y logout HTTP 204. La sesión de comprobación quedó cerrada.
+- Archivos: seguimiento actualizado; auxiliares temporales eliminados. No se
+  modificó el código del producto ni se repitieron suites generales.
+- Estado: panel activado localmente; revisión visual y creación de producto
+  mediante la interfaz pendientes. Sin despliegue.
+- Siguiente paso: entrar en /admin con la cuenta elegida y cargar el catálogo.
+
+## H-032 · Inicio local y apertura de Chrome pendiente · 2026-10-15 (America/Caracas)
+
+- Petición: ver el avance del proyecto y abrirlo en Google Chrome.
+- Acción: revisión de memoria y código; coordinación acotada de solo lectura.
+  Se lanzaron backend y Vite con procesos ocultos y logs locales bajo .tmp.
+- La herramienta de navegación no enumeró navegadores. El control de ventanas
+  encontró Chrome, pero se detuvo al no poder identificar con certeza su URL.
+  No se abrió ni inspeccionó la tienda en el navegador.
+- El inicio de procesos quedó verificado posteriormente por HTTP en H-033.
+- Sin migraciones, cambios de credenciales, datos de catálogo ni despliegue.
+
+## H-033 · Verificación local del proyecto · 2026-10-15 (America/Caracas)
+
+- Petición: tomar control y hacer las pruebas. Principal único escritor de memoria;
+  agentes separados para backend/build/db:check y PostgreSQL temporal; coordinador
+  de solo lectura revisó alcance, verificaciones y diferencias documentales.
+- Comprobaciones nuevas: npm --prefix backend test, 12/12 aprobadas, código 0;
+  npm --prefix frontend run build, código 0, 18 módulos, sin advertencias;
+  npm --prefix backend run db:check, código 0, rol limitado y lectura de cuatro
+  tablas del catálogo aprobados. No se imprimió el .env ni credenciales.
+- node backend/database/test-schema.cjs: primer intento bloqueado por sandbox
+  al iniciar pg_ctl (restricted token 87 y start server 3). Reejecución con
+  escalación específica aprobada, código 0: esquema, catálogo, permisos, cálculos,
+  históricos, pagos, inventario, concurrencia y administración (sesiones, CSRF,
+  rollback, edición concurrente, entradas idempotentes, fotos, logo y limpieza).
+  Servidor temporal detenido y eliminado; cero directorios postgres-schema-*.
+  La base habitual no se usó para esas escrituras.
+- Prueba HTTP actual sobre Vite: 28 comprobaciones aprobadas; HTML/recursos,
+  imágenes, catálogo y health/db 200; validación 400, acceso/escritura anónimos 401,
+  origen externo 403 e imagen inexistente 404. Catálogo inicial: cero productos.
+  Los POST negativos se rechazaron; no se creó mercancía ficticia.
+- Nuevo intento de abrir Chrome por herramienta de navegador devolvió
+  «Browser is not available: chrome». Revisión visual e interactiva pendiente;
+  no se repitió login con la cuenta habitual ni se afirma prueba móvil.
+- Archivos: ESTADO.md, TABLERO.md, BITACORA.md y VERIFICACION-2026-10-15.md.
+  Auxiliares/evidencia local en .tmp/comprobar-http-20261015.cjs y
+  .tmp/comprobacion-http-20261015.json; build generado en frontend/dist.
+  Código de producto y migraciones sin cambios en esta entrega.
+- Precisión documental: H-031 acredita activación habitual, aunque D-020 y las
+  guías iniciales aún conservan la redacción anterior «pendiente». El diagrama
+  muestra las 11 tablas iniciales, sin sesiones_admin/configuracion_tienda de 003.
+- Estado: BF-014/015 en revisión y BF-013 parcial; BF-009 pendiente.
+  Sin push ni despliegue. Siguiente paso: recuperar acceso de navegador, revisar
+  tienda/panel/diagrama mediante clics y después cargar el primer producto real.
+
 ## Plantilla para próximas entradas
 
 ```text

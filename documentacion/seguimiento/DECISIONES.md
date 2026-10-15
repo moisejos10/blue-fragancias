@@ -23,6 +23,9 @@ actuales. «Aceptada» significa una elección del usuario o un diseño aplicado
 | D-015 | Referencia aportada por el usuario · 2026-09-25 | Usar https://fraganciasboutique.com/ como guía aproximada para Blue Fragancias | Orienta la tienda; colores, composición y funciones concretas siguen por definir |
 | D-016 | Aceptada por el usuario · 2026-09-25 | Usar el repositorio existente https://github.com/moisejos10/blue-fragancias.git junto con Git local | Tras la propuesta de crear uno nuevo, el usuario aportó este destino y confirmó que es privado. Rama `main` y remoto `origin`; no se cambia su visibilidad |
 | D-017 | Aceptada por el usuario · 2026-09-25 | Conservar `AGENTS.md` localmente durante el trabajo y retirarlo al finalizar; excluirlo de GitHub | El usuario no quiere ese archivo publicado. Implementado mediante copia local intacta y `/AGENTS.md` en `.gitignore`; ausente de `main` actual. Historial anterior conservado, sin purga ni force; retirada local pendiente en BF-025 |
+| D-018 | Aceptada por el usuario · 2026-10-01 | Azul cielo, blanco y negro para el catálogo | Respuesta explícita del usuario. Primera composición implementada; revisión visual pendiente |
+| D-019 | Aceptada por el usuario · 2026-10-01 | Continuar el diseño con imágenes provisionales de referencia; fotos y logo reales se aportarán después | Petición explícita. Referencias generadas e identificadas como provisionales, sin cargar mercancía ficticia en la base habitual |
+| D-020 | Aceptada por el usuario · 2026-10-01 | Actualizar el catálogo desde un panel gráfico sencillo, sin editar código | Formularios de productos, presentaciones/precios, fotos, logo y entradas de inventario implementados; activación habitual y revisión interactiva pendientes |
 
 ## Referencia de tienda · D-015
 

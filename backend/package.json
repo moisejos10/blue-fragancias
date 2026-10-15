@@ -7,6 +7,8 @@
     "test": "node --test test/config.test.cjs test/app.test.cjs",
     "test:db": "node database/test-schema.cjs",
     "db:check": "node --env-file=.env scripts/check-db.cjs",
+    "admin:instalar": "node --env-file=.env scripts/instalar-admin.cjs",
+    "admin:crear": "node --env-file=.env scripts/crear-admin.cjs",
     "start": "node --env-file=.env src/server.js",
     "dev": "node --env-file=.env --watch src/server.js"
   },
@@ -14,7 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.45.1",
     "express": "^5.2.1",
-    "pg": "^8.23.0"
+    "express-rate-limit": "^8.7.0",
+    "multer": "^2.4.0",
+    "pg": "^8.23.0",
+    "sharp": "^0.35.5"
   }
 }

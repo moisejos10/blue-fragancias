@@ -97,11 +97,16 @@ module.exports = async function testBackend({ run, connection, port, password })
     assert.deepEqual(await healthy.json(), { status: 'ok' });
     assert.equal(healthy.headers.get('cache-control'), 'no-store');
 
+    await require('./test-catalogo.cjs')(admin, pool, http.url);
+
     failedPool = createPool({ ...database, password: crypto.randomBytes(32).toString('hex') });
     failedHttp = await openHttp(failedPool);
     const unhealthy = await fetch(`${failedHttp.url}/api/health/db`, { signal: AbortSignal.timeout(10000) });
     assert.equal(unhealthy.status, 503);
     assert.deepEqual(await unhealthy.json(), { status: 'unavailable' });
+    const unavailableCatalog = await fetch(`${failedHttp.url}/api/productos`, { signal: AbortSignal.timeout(10000) });
+    assert.equal(unavailableCatalog.status, 503);
+    assert.deepEqual(await unavailableCatalog.json(), { error: 'El catalogo no esta disponible temporalmente.' });
     const live = await fetch(`${failedHttp.url}/api/health`, { signal: AbortSignal.timeout(10000) });
     assert.equal(live.status, 200);
     console.log('Express + pool PostgreSQL: HTTP 200 con catalogo vacio y 503 saneado con autenticacion fallida: OK');

@@ -118,6 +118,7 @@ async function main() {
   assert.equal(sql('SELECT stock_fisico, stock_reservado FROM variantes_producto WHERE id = 2').stdout.trim(), '1|1');
   assert.equal(sql("SELECT count(*) FROM movimientos_inventario WHERE variante_id = 2 AND tipo = 'reserva'").stdout.trim(), '1');
   console.log('Dos conexiones compiten por la ultima unidad; solo una reserva prospera: OK');
+  await require('./test-admin.cjs')({ run, connection, port, password });
 }
 
 main().catch(error => {

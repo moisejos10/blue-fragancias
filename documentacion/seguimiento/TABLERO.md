@@ -1,6 +1,6 @@
 # Tablero de trabajo
 
-Actualizado: 2026-09-25. Método: Pendiente → En desarrollo → En revisión → Terminado.
+Actualizado: 2026-10-15. Método: Pendiente → En desarrollo → En revisión → Terminado.
 Si existe una dependencia externa, marcar «Bloqueado» con causa y siguiente acción.
 Máximo una entrega funcional principal en desarrollo; revisiones independientes
 pueden ir en paralelo. No avanzar sin una petición que autorice el trabajo.
@@ -19,18 +19,35 @@ pueden ir en paralelo. No avanzar sin una petición que autorice el trabajo.
 | BF-023 | Reconstruir `backend/database/pruebas.sql` y recuperar la suite temporal | Probado localmente el 2026-09-25: 73 comprobaciones SQL y ejecutor completo con código 0, incluido subtotal al COMMIT y disputa por la última unidad; migración y base habitual intactas |
 | BF-008 | Crear repositorio Git inicial y primer punto de recuperación | Rama `main`, commit `6235fa8`, 22 archivos revisados; dependencias, `.env`, logs y temporales excluidos; verificado localmente el 2026-09-25 |
 | BF-024 | Asociar GitHub y verificar el historial remoto | Repositorio existente `moisejos10/blue-fragancias`, privado según el usuario; `main` subida sin force, seguimiento `origin/main` y SHA local/remoto coincidente el 2026-09-25 |
+| BF-010 | Conexión Express/PostgreSQL con pool y rol limitado | db:check y ambas rutas HTTP aprobados contra la base habitual en la sesión anterior; cierre registrado el 26 de septiembre en H-022. Funciona localmente, no desplegado |
+| BF-011 | Catálogo público con paginación, búsqueda y filtros | Terminado localmente el 2026-10-01: 11 pruebas HTTP/configuración y suite PostgreSQL temporal aprobadas, con búsqueda literal, combinaciones y paginación filtrada. HTTP habitual por proxy 200 con catálogo vacío; no desplegado (H-026) |
 
 ## En desarrollo
 
-BF-010 implementado y probado en PostgreSQL temporal; pasa a revisión mientras
-el usuario configura su conexión habitual. No se inició BF-011 ni frontend.
+Sin nueva entrega funcional principal iniciada. Próximo paso: revisar de forma
+interactiva la administración local ya activada y crear el primer producto.
 `AGENTS.md` sigue local e ignorado por Git (D-017); retirada al cierre en BF-025.
 
 ## En revisión
 
-| ID | Entrega | Evidencia y paso pendiente |
-|---|---|---|
-| BF-010 | Conexión Express/PostgreSQL con pool y rol limitado | 7 pruebas unitarias y suite temporal ampliada aprobadas. Pendiente ejecutar `002_rol_backend.sql` en la base habitual, asignar contraseña local, completar `.env` y confirmar `db:check` + HTTP 200 |
+**Administración local del catálogo (BF-014 + BF-015):** login/sesiones y panel
+de productos, variantes/precios, portada, logo, publicación y entradas de inventario
+implementados. 12 pruebas HTTP/configuración y suite PostgreSQL temporal ampliada
+aprobadas nuevamente el 2026-10-15. Compilación React, db:check habitual y 28
+comprobaciones HTTP por proxy aprobadas (H-033). PostgreSQL temporal detenido
+y limpiado; no se cargaron datos de prueba en la base habitual.
+Activación habitual comprobada en H-031: tablas/función 003 presentes y primera
+cuenta solicitada creada, con login/sesión HTTP 200 y logout 204. No se repitió
+la migración. Pendientes: revisión interactiva y primer producto desde el panel.
+La herramienta de navegación no tiene Chrome disponible y el intento previo de
+control de ventanas no pudo identificar la URL; no se acredita revisión visual.
+
+**BF-013 parcial:** pantalla con azul cielo/blanco/negro y tres referencias visuales
+de ImageGen autorizadas en D-019. Portada, inspiración, catálogo, filtros y enlace
+al panel; build y HTTP/proxy aprobados. Falta navegador para revisión visual y
+primer producto real (P-004/P-009). Carpeta `imagenes-tienda/` disponible.
+Verificación nueva del 15 de octubre en
+[VERIFICACION-2026-10-15.md](VERIFICACION-2026-10-15.md); catálogo habitual vacío.
 
 La interacción del HTML sigue como comprobación pendiente BF-009.
 
@@ -40,11 +57,7 @@ La interacción del HTML sigue como comprobación pendiente BF-009.
 |---|---|---|---|
 | BF-009 | Baja | Abrir HTML local en navegador y comprobar selección de tablas y zoom | BF-006; acceso del usuario o herramienta compatible |
 | BF-025 | Baja | Retirar la copia local de `AGENTS.md` al finalizar el trabajo, según D-017; mientras tanto conservarla excluida de Git | Cierre del desarrollo; no ejecutar ahora ni reescribir historial por esta tarea |
-| BF-011 | Alta | API de catálogo con productos/presentaciones, filtros, paginación y validación de parámetros | BF-010 |
 | BF-012 | Alta | Elegir fuente EUR/VES y validar fecha, redondeo y tratamiento de fallos | P-002, P-003; BF-010 |
-| BF-013 | Alta | Base React y diseño adaptable, guiado por la referencia D-015; mostrar un producto real de la API y estados de carga/error | BF-011; recursos visuales iniciales y diseño por concretar |
-| BF-014 | Alta | Acceso administrativo, sesiones y autorización verificadas en el servidor | BF-010 |
-| BF-015 | Alta | Administrar productos, imágenes y entradas de inventario con validación y permisos | BF-011, BF-014 |
 | BF-016 | Alta | Carrito y pedido invitado transaccional con datos de entrega, idempotencia y reservas | BF-011, BF-012, BF-013; P-005, P-006 |
 | BF-017 | Alta | Enlace WhatsApp generado desde pedido persistido, sin marcar enviado/pagado automáticamente | BF-016; número comercial |
 | BF-018 | Alta | Registro y revisión de pagos; conciliación, estados y manejo de efectivo | BF-014, BF-016; P-007, P-008 |
