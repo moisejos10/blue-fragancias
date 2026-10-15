@@ -618,6 +618,34 @@ de nuevo. Añadir las próximas entradas al final.
   Sin push ni despliegue. Siguiente paso: recuperar acceso de navegador, revisar
   tienda/panel/diagrama mediante clics y después cargar el primer producto real.
 
+## H-034 · Avance subido a GitHub · 2026-10-15 (America/Caracas)
+
+- Petición explícita: subir el avance a GitHub y entregar el enlace del repositorio.
+- Destino existente confirmado: https://github.com/moisejos10/blue-fragancias.git,
+  rama main. Fetch previo aprobado; local y origin/main partían de ddf9ffc sin
+  divergencia. No se cambió la visibilidad ni se creó otro repositorio.
+- Revisión del principal y coordinador de solo lectura: 44 archivos con tienda
+  React, catálogo Express, panel administrativo, migración nueva 003, pruebas,
+  referencias visuales y documentación. Sin secretos reales detectados; valores
+  de pruebas sintéticos o aleatorios. .env.example tiene contraseña vacía.
+- Exclusiones comprobadas por Git: AGENTS.md local, .env real, backend/storage,
+  node_modules, dist y .tmp. Ninguna de esas rutas está en el árbol nuevo.
+  Las migraciones 001/002 permanecen intactas. No se leyó el .env privado.
+- git diff --cached --check aprobado. Se conservaron los resultados de H-033;
+  no se repitieron suites por esta operación de Git sin cambios de código.
+- Commit d9aec8044ea716acfcb8a7a494c553e3424ba340:
+  «feat: agregar tienda y administracion del catalogo», 44 archivos.
+  git push origin main aprobado sin force. git ls-remote confirmó exactamente
+  el mismo SHA en refs/heads/main. Árbol local limpio tras el commit de producto.
+- El sandbox bloqueó inicialmente FETCH_HEAD; las operaciones Git de escritura
+  y red se realizaron con escalación específica autorizada. No hubo rechazo
+  de la revisión automática ni se ampliaron permisos del repositorio.
+- Archivos de cierre: ESTADO.md, TABLERO.md y esta bitácora; el registro de la
+  sincronización se incorpora como commit documental posterior.
+- Estado: código respaldado en GitHub, aplicación todavía local, BF-014/015 en
+  revisión y BF-013 parcial. Siguiente paso: revisión interactiva y primer producto
+  real; subir código no completa pedidos/pagos ni publica la tienda.
+
 ## Plantilla para próximas entradas
 
 ```text

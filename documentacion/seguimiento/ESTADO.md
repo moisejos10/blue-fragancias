@@ -18,8 +18,9 @@ con logos, perfumes, banners y referencias; pendiente de archivos del usuario (H
 
 **Última entrega completada:** BF-011, catálogo con filtros/búsqueda, probado el
 1 de octubre con 11 pruebas HTTP/configuración y suite PostgreSQL temporal.
-Se corrigió la búsqueda literal de comodines. Frontend y catálogo permanecen
-locales, pendientes de sincronización; la tienda no está desplegada.
+Se corrigió la búsqueda literal de comodines. Frontend, catálogo, panel y pruebas
+subidos a GitHub el 15 de octubre en `d9aec80`, verificado contra `main` remota
+(H-034). La aplicación sigue local; la tienda no está desplegada.
 Fragancias Boutique sigue como guía de tienda (D-015).
 
 **Punto de retorno:** abrir http://127.0.0.1:5173 para ver la tienda y `/admin` para
@@ -74,8 +75,8 @@ y probado en base temporal (H-030); revisión visual/interactiva pendiente.
 | Rol y conexión habitual | Comprobado nuevamente el 2026-10-15 (H-033) | db:check código 0: rol limitado y lectura de 4 tablas del catálogo; health y health/db 200 a través de Vite. Configuración privada local, sin imprimir secretos |
 | Documentación visual | Implementada y verificada parcialmente | HTML/SVG/PNG y guía en `documentacion`: esquema inicial de 11 tablas, 16 FK y 110 campos; PNG revisado históricamente. No incorpora las dos tablas añadidas por 003 |
 | Interacción del HTML | Pendiente de prueba en navegador | La herramienta bloqueó `file://`; se validó sintaxis JavaScript y se inspeccionó el SVG rasterizado, no la interacción del navegador |
-| Git del proyecto | Implementado y comprobado localmente | Rama `main`, primer commit `6235fa8` con 22 archivos; `.env`, dependencias, logs y `.tmp` excluidos. Identidad Git existente utilizada; primer commit verificado con árbol limpio |
-| GitHub | Sincronizado, verificado y confirmado por el usuario el 2026-09-25 | `origin` apunta al repositorio existente aportado por el usuario. Push sin force, seguimiento `origin/main` y SHA local/remoto coincidente. Privacidad indicada por el usuario; no se cambió la visibilidad. Git Credential Manager permitió autenticar sin instalar plugin ni `gh` |
+| Git del proyecto | Avance guardado y subido el 2026-10-15 | Rama `main`; `d9aec80` incluye 44 archivos de tienda, panel, catálogo, pruebas y documentación. Archivos privados, AGENTS.md, dependencias, compilados y temporales excluidos; migraciones 001/002 intactas |
+| GitHub | Avance sincronizado y verificado el 2026-10-15 (H-034) | `origin`: `moisejos10/blue-fragancias`. Push sin force de `d9aec80`; SHA local/remoto coincidente. Se conserva la visibilidad existente, indicada como privada por el usuario. No equivale a desplegar la tienda |
 | Coordinación persistente | Perfil, memoria e instrucciones locales presentes | `AGENTS.md` local excluido de Git (D-017); comandos de pruebas actualizados para BF-010. Archivo ausente del árbol remoto actual, conservado en historial antiguo. Perfil `.codex/agents/coordinador_blue.toml` disponible |
 | Referencia de tienda | Aportada por el usuario; diseño pendiente | Fragancias Boutique (D-015): contenido de inicio y colección consultado por web. Navegador visual no disponible; apariencia e interacciones no comprobadas |
 

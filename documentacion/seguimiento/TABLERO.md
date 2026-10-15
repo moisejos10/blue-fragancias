@@ -18,7 +18,7 @@ pueden ir en paralelo. No avanzar sin una petición que autorice el trabajo.
 | BF-007 | Configurar coordinador y memoria del proyecto | Perfil local válido e instalado, AGENTS.md y memoria presentes; perfil disponible e invocado para revisión acotada el 25 de septiembre |
 | BF-023 | Reconstruir `backend/database/pruebas.sql` y recuperar la suite temporal | Probado localmente el 2026-09-25: 73 comprobaciones SQL y ejecutor completo con código 0, incluido subtotal al COMMIT y disputa por la última unidad; migración y base habitual intactas |
 | BF-008 | Crear repositorio Git inicial y primer punto de recuperación | Rama `main`, commit `6235fa8`, 22 archivos revisados; dependencias, `.env`, logs y temporales excluidos; verificado localmente el 2026-09-25 |
-| BF-024 | Asociar GitHub y verificar el historial remoto | Repositorio existente `moisejos10/blue-fragancias`, privado según el usuario; `main` subida sin force, seguimiento `origin/main` y SHA local/remoto coincidente el 2026-09-25 |
+| BF-024 | Asociar GitHub y verificar el historial remoto | Repositorio existente `moisejos10/blue-fragancias`, privado según el usuario; sincronización del avance actual el 2026-10-15: `d9aec80` subido sin force a `main`, SHA local/remoto coincidente (H-034) |
 | BF-010 | Conexión Express/PostgreSQL con pool y rol limitado | db:check y ambas rutas HTTP aprobados contra la base habitual en la sesión anterior; cierre registrado el 26 de septiembre en H-022. Funciona localmente, no desplegado |
 | BF-011 | Catálogo público con paginación, búsqueda y filtros | Terminado localmente el 2026-10-01: 11 pruebas HTTP/configuración y suite PostgreSQL temporal aprobadas, con búsqueda literal, combinaciones y paginación filtrada. HTTP habitual por proxy 200 con catálogo vacío; no desplegado (H-026) |
 
@@ -48,6 +48,8 @@ al panel; build y HTTP/proxy aprobados. Falta navegador para revisión visual y
 primer producto real (P-004/P-009). Carpeta `imagenes-tienda/` disponible.
 Verificación nueva del 15 de octubre en
 [VERIFICACION-2026-10-15.md](VERIFICACION-2026-10-15.md); catálogo habitual vacío.
+Tienda, catálogo, panel, pruebas y documentación subidos a GitHub en `d9aec80`
+el 15 de octubre (H-034). Continúan las revisiones pendientes; no hay despliegue.
 
 La interacción del HTML sigue como comprobación pendiente BF-009.
 
